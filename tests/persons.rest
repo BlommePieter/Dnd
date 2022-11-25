@@ -2,3 +2,19 @@
 GET http://localhost:7071/api/classes HTTP/1.1 
 
 ###
+
+GET http://localhost:7071/api/spells HTTP/1.1 
+
+###
+
+GET http://localhost:7071/api/items HTTP/1.1 
+
+###
+
+GET http://localhost:7071/api/weapons HTTP/1.1 
+
+###
+
+GET http://localhost:7071/api/armors HTTP/1.1 
+
+###

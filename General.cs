@@ -11,7 +11,7 @@ public class General
     public const string COSMOS_DB_DND = "DnD";
     public const string COSMOS_CONTAINER_CLASSES = "classes";
     public const string COSMOS_CONTAINER_SPELLS = "spells";
-    public const string COSMOS_CONTAINER_ITEMS = "magic items";
+    public const string COSMOS_CONTAINER_ITEMS = "items";
     public const string COSMOS_CONTAINER_WEAPONS = "weapons";
     public const string COSMOS_CONTAINER_ARMOR = "armor";
 

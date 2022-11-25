@@ -221,6 +221,142 @@ public class DnDFunctions
         }
 
     }
+
+    [FunctionName("AddSpell")]
+    public static async Task<IActionResult> AddSpell(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "spells")] HttpRequest req,
+        ILogger log)
+    {
+        try
+        {
+            // body uitlezen en omzetten naar Person object
+            var json = await new StreamReader(req.Body).ReadToEndAsync();
+            var task = JsonConvert.DeserializeObject<Spell>(json);
+
+            // connectie maken met CosmosDb
+            var ConnectionString = Environment.GetEnvironmentVariable("CosmosDb");
+
+            CosmosClientOptions options = new CosmosClientOptions()
+            {
+                ConnectionMode = ConnectionMode.Gateway
+            };
+
+            CosmosClient client = new CosmosClient(ConnectionString, options);
+            var container = client.GetContainer(General.COSMOS_DB_DND, General.COSMOS_CONTAINER_SPELLS);
+            task.Id = Guid.NewGuid().ToString();
+            await container.CreateItemAsync(task, new PartitionKey(task.Id));
+
+            return new OkObjectResult(task);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(ex.Message);
+            return new BadRequestObjectResult(ex.Message);
+        }
+
+    }
+
+    [FunctionName("AddItem")]
+    public static async Task<IActionResult> AddItem(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "items")] HttpRequest req,
+        ILogger log)
+    {
+        try
+        {
+            // body uitlezen en omzetten naar Person object
+            var json = await new StreamReader(req.Body).ReadToEndAsync();
+            var task = JsonConvert.DeserializeObject<Item>(json);
+
+            // connectie maken met CosmosDb
+            var ConnectionString = Environment.GetEnvironmentVariable("CosmosDb");
+
+            CosmosClientOptions options = new CosmosClientOptions()
+            {
+                ConnectionMode = ConnectionMode.Gateway
+            };
+
+            CosmosClient client = new CosmosClient(ConnectionString, options);
+            var container = client.GetContainer(General.COSMOS_DB_DND, General.COSMOS_CONTAINER_ITEMS);
+            task.Id = Guid.NewGuid().ToString();
+            await container.CreateItemAsync(task, new PartitionKey(task.Id));
+
+            return new OkObjectResult(task);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(ex.Message);
+            return new BadRequestObjectResult(ex.Message);
+        }
+
+    }
+
+    [FunctionName("AddWeapon")]
+    public static async Task<IActionResult> AddWeapon(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "weapons")] HttpRequest req,
+        ILogger log)
+    {
+        try
+        {
+            // body uitlezen en omzetten naar Person object
+            var json = await new StreamReader(req.Body).ReadToEndAsync();
+            var task = JsonConvert.DeserializeObject<Weapon>(json);
+
+            // connectie maken met CosmosDb
+            var ConnectionString = Environment.GetEnvironmentVariable("CosmosDb");
+
+            CosmosClientOptions options = new CosmosClientOptions()
+            {
+                ConnectionMode = ConnectionMode.Gateway
+            };
+
+            CosmosClient client = new CosmosClient(ConnectionString, options);
+            var container = client.GetContainer(General.COSMOS_DB_DND, General.COSMOS_CONTAINER_WEAPONS);
+            task.Id = Guid.NewGuid().ToString();
+            await container.CreateItemAsync(task, new PartitionKey(task.Id));
+
+            return new OkObjectResult(task);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(ex.Message);
+            return new BadRequestObjectResult(ex.Message);
+        }
+
+    }
+
+    [FunctionName("AddArmor")]
+    public static async Task<IActionResult> AddArmor(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "armors")] HttpRequest req,
+        ILogger log)
+    {
+        try
+        {
+            // body uitlezen en omzetten naar Person object
+            var json = await new StreamReader(req.Body).ReadToEndAsync();
+            var task = JsonConvert.DeserializeObject<Armor>(json);
+
+            // connectie maken met CosmosDb
+            var ConnectionString = Environment.GetEnvironmentVariable("CosmosDb");
+
+            CosmosClientOptions options = new CosmosClientOptions()
+            {
+                ConnectionMode = ConnectionMode.Gateway
+            };
+
+            CosmosClient client = new CosmosClient(ConnectionString, options);
+            var container = client.GetContainer(General.COSMOS_DB_DND, General.COSMOS_CONTAINER_ARMOR);
+            task.Id = Guid.NewGuid().ToString();
+            await container.CreateItemAsync(task, new PartitionKey(task.Id));
+
+            return new OkObjectResult(task);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(ex.Message);
+            return new BadRequestObjectResult(ex.Message);
+        }
+
+    }
 }
 
 

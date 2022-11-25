@@ -16,4 +16,7 @@ public class Item
 
     [JsonProperty("requires_attunement")]
     public string Attunement { get; set; }
+
+    [JsonProperty("id")]
+    public string Id { get; set; }
 }

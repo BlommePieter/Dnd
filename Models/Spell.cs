@@ -40,4 +40,7 @@ public class Spell
 
     [JsonProperty("dnd_class")]
     public string Class { get; set; }
+
+    [JsonProperty("id")]
+    public string Id { get; set; }
 }

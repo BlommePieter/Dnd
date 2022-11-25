@@ -36,4 +36,7 @@ public class Class
 
     [JsonProperty("subtypes_name")]
     public string SubtypeName { get; set; }
+
+    [JsonProperty("id")]
+    public string Id { get; set; }
 }

@@ -187,6 +187,40 @@ public class DnDFunctions
         }
 
     }
+
+    [FunctionName("AddClass")]
+    public static async Task<IActionResult> AddClass(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "classes")] HttpRequest req,
+        ILogger log)
+    {
+        try
+        {
+            // body uitlezen en omzetten naar Person object
+            var json = await new StreamReader(req.Body).ReadToEndAsync();
+            var task = JsonConvert.DeserializeObject<Class>(json);
+
+            // connectie maken met CosmosDb
+            var ConnectionString = Environment.GetEnvironmentVariable("CosmosDb");
+
+            CosmosClientOptions options = new CosmosClientOptions()
+            {
+                ConnectionMode = ConnectionMode.Gateway
+            };
+
+            CosmosClient client = new CosmosClient(ConnectionString, options);
+            var container = client.GetContainer(General.COSMOS_DB_DND, General.COSMOS_CONTAINER_CLASSES);
+            task.Id = Guid.NewGuid().ToString();
+            await container.CreateItemAsync(task, new PartitionKey(task.Id));
+
+            return new OkObjectResult(task);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(ex.Message);
+            return new BadRequestObjectResult(ex.Message);
+        }
+
+    }
 }
 
 

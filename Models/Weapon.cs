@@ -22,4 +22,7 @@ public class Weapon
 
     [JsonProperty("properties")]
     public List<string> Properties { get; set; }
+
+    [JsonProperty("id")]
+    public string Id { get; set; }
 }

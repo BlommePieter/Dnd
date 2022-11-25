@@ -19,4 +19,7 @@ public class Armor
 
     [JsonProperty("stealth_disadvantage")]
     public bool StealthDisadvantage { get; set; }
+
+    [JsonProperty("id")]
+    public string Id { get; set; }
 }

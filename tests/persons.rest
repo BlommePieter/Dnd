@@ -1,0 +1,4 @@
+
+GET http://localhost:7071/api/classes HTTP/1.1 
+
+###

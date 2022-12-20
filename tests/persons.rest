@@ -63,3 +63,13 @@ Content-Type: application/json
 }
 
 ###
+
+PUT http://localhost:7071/api/classes HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Bard TEST3",
+    "id": "32265f75-b935-4d1f-8360-06dcf0aa5010"
+}
+
+###

@@ -97,3 +97,7 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:7071/api/games/groep1 HTTP/1.1 
+
+###
+

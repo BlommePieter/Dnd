@@ -528,6 +528,43 @@ public class DnDFunctions
         }
 
     }
+
+    [FunctionName("GetGames")]
+    public static async Task<IActionResult> GetGames(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "games")] HttpRequest req,
+        ILogger log)
+    {
+        try
+        {
+            var ConnectionString = Environment.GetEnvironmentVariable("CosmosDb");
+
+            CosmosClientOptions options = new CosmosClientOptions()
+            {
+                ConnectionMode = ConnectionMode.Gateway
+            };
+
+            CosmosClient client = new CosmosClient(ConnectionString, options);
+            var container = client.GetContainer(General.COSMOS_DB_JACHTSEIZOEN, General.COSMOS_CONTAINER_GAMES);
+
+            string sql = "SELECT * FROM c";
+            var iterator = container.GetItemQueryIterator<Game>(sql);
+            var results = new List<Game>();
+
+            while (iterator.HasMoreResults)
+            {
+                var response = await iterator.ReadNextAsync();
+                results.AddRange(response.ToList());
+            }
+
+            return new OkObjectResult(results);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(ex.Message);
+            return new BadRequestObjectResult(ex.Message);
+        }
+
+    }
 }
 
 

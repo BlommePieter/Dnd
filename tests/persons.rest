@@ -73,3 +73,7 @@ Content-Type: application/json
 }
 
 ###
+
+GET http://localhost:7071/api/games HTTP/1.1 
+
+###

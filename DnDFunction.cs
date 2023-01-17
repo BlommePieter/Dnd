@@ -588,7 +588,7 @@ public class DnDFunctions
             CosmosClient client = new CosmosClient(ConnectionString, options);
             var container = client.GetContainer(General.COSMOS_DB_JACHTSEIZOEN, General.COSMOS_CONTAINER_GAMES);
             task.Id = Guid.NewGuid().ToString();
-            await container.CreateItemAsync(task, new PartitionKey(task.Groep));
+            await container.CreateItemAsync(task, new PartitionKey(task.Id));
 
             return new OkObjectResult(task);
         }

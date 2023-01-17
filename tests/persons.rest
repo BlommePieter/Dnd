@@ -92,7 +92,7 @@ Content-Type: application/json
 
 {
     "groep": "test update groep",
-    "id": "b6929d8f-6245-4096-b04f-4850d36e95f1"
+    "id": "0b427933-4cb5-4b00-bbb5-f51bf784dff1"
 }
 
 ###

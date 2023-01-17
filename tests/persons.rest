@@ -77,3 +77,23 @@ Content-Type: application/json
 GET http://localhost:7071/api/games HTTP/1.1 
 
 ###
+
+POST http://localhost:7071/api/games HTTP/1.1
+Content-Type: application/json
+
+{
+    "groep": "test groep"
+}
+
+###
+
+PUT http://localhost:7071/api/games HTTP/1.1
+Content-Type: application/json
+
+{
+    "groep": "test update groep",
+    "id": "b6929d8f-6245-4096-b04f-4850d36e95f1"
+}
+
+###
+

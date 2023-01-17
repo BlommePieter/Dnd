@@ -565,6 +565,74 @@ public class DnDFunctions
         }
 
     }
+
+    [FunctionName("AddGame")]
+    public static async Task<IActionResult> AddGame(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "games")] HttpRequest req,
+        ILogger log)
+    {
+        try
+        {
+            // body uitlezen en omzetten naar Person object
+            var json = await new StreamReader(req.Body).ReadToEndAsync();
+            var task = JsonConvert.DeserializeObject<Game>(json);
+
+            // connectie maken met CosmosDb
+            var ConnectionString = Environment.GetEnvironmentVariable("CosmosDb");
+
+            CosmosClientOptions options = new CosmosClientOptions()
+            {
+                ConnectionMode = ConnectionMode.Gateway
+            };
+
+            CosmosClient client = new CosmosClient(ConnectionString, options);
+            var container = client.GetContainer(General.COSMOS_DB_JACHTSEIZOEN, General.COSMOS_CONTAINER_GAMES);
+            task.Id = Guid.NewGuid().ToString();
+            await container.CreateItemAsync(task, new PartitionKey(task.Groep));
+
+            return new OkObjectResult(task);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(ex.Message);
+            return new BadRequestObjectResult(ex.Message);
+        }
+
+    }
+
+    [FunctionName("UpdateGame")]
+    public static async Task<IActionResult> UpdateGame(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "games")] HttpRequest req,
+        ILogger log)
+    {
+        try
+        {
+            // body uitlezen en omzetten naar Person object
+            var json = await new StreamReader(req.Body).ReadToEndAsync();
+            var game = JsonConvert.DeserializeObject<Game>(json);
+
+            // connectie maken met CosmosDb
+            var ConnectionString = Environment.GetEnvironmentVariable("CosmosDb");
+
+            CosmosClientOptions options = new CosmosClientOptions()
+            {
+                ConnectionMode = ConnectionMode.Gateway
+            };
+
+            CosmosClient client = new CosmosClient(ConnectionString, options);
+
+            var container = client.GetContainer(General.COSMOS_DB_JACHTSEIZOEN, General.COSMOS_CONTAINER_GAMES);
+            await container.ReplaceItemAsync(game, game.Id);
+
+            return new OkObjectResult(game);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(ex.Message);
+            return new BadRequestObjectResult(ex.Message);
+        }
+
+    }
 }
 
 

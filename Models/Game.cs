@@ -15,7 +15,7 @@ public class Game
     public string SpelCode { get; set; }
 
     [JsonProperty("aantalSpelers")]
-    public string AantalSpelers { get; set; }
+    public int AantalSpelers { get; set; }
 
     [JsonProperty("id")]
     public string Id { get; set; }

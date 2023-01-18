@@ -11,6 +11,9 @@ public class Game
     [JsonProperty("BoefLongtitude")]
     public float Longtitude { get; set; }
 
+    [JsonProperty("spelcode")]
+    public string Spelcode { get; set; }
+
     [JsonProperty("id")]
     public string Id { get; set; }
 }

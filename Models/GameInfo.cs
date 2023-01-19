@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace mqttTest.models
+namespace MCT.Functions.Models
 {
 	public class GameInfo
 	{

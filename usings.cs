@@ -12,3 +12,5 @@ global using MCT.Functions.Models;
 global using System.Collections.Generic;
 global using System.Linq;
 global using MCT.Functions;
+global using MQTTnet;
+global using MQTTnet.Client;

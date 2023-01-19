@@ -17,4 +17,5 @@ public class General
     public const string COSMOS_CONTAINER_ARMOR = "armor";
     public const string COSMOS_CONTAINER_GAMES = "games";
 
+
 }

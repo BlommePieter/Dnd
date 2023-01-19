@@ -1,6 +1,6 @@
 using System;
 
-namespace mqttTest.models
+namespace MCT.Functions.Models
 {
     public class GameResults
     {
